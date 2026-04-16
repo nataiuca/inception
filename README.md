@@ -125,5 +125,3 @@ Algunos campus o evaluadores revisan detalles concretos como:
 - rutas exactas de volúmenes en `/home/<login>/data`,
 - que no se usen imágenes ya hechas para Nginx/WordPress/MariaDB,
 - que no aparezca `latest` en ningún `Dockerfile` o en Compose.
-
-Este proyecto ya está planteado para respetar esos puntos.
