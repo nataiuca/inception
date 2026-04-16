@@ -15,15 +15,13 @@ inception/
         ├── mariadb/
         │   ├── Dockerfile
         │   ├── conf/
-        │   │   └── 50-server.conf
+        │   │   └── 50-server.cnf
         │   └── tools/
         │       └── setup.sh
         ├── nginx/
         │   ├── Dockerfile
         │   ├── conf/
-        │   │   └── default.conf
-        │   └── tools/
-        │       └── setup.sh
+        │   │   └── nginx.conf
         └── wordpress/
             ├── Dockerfile
             ├── conf/
