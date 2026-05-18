@@ -9,8 +9,9 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 	mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 	mysqld_safe --datadir=/var/lib/mysql &
-	pid="$!"
+	pid=$!
 
+	echo "Waiting DB..."
 	until mariadb-admin ping --silent; do
 		sleep 2
 	done
@@ -24,7 +25,7 @@ FLUSH PRIVILEGES;
 EOF
 
 	mysqladmin -u root -p"${MYSQL_ROOT_PASSWORD}" shutdown
-	wait "$pid" || true
+	wait $pid || true
 fi
 
 exec mysqld_safe --datadir=/var/lib/mysql

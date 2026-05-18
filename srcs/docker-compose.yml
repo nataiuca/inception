@@ -1,9 +1,9 @@
-
 services:
   mariadb:
     container_name: mariadb
     build:
       context: ./requirements/mariadb
+      dockerfile: Dockerfile
     image: inception-mariadb
     env_file:
       - .env
@@ -17,6 +17,7 @@ services:
     container_name: wordpress
     build:
       context: ./requirements/wordpress
+      dockerfile: Dockerfile
     image: inception-wordpress
     env_file:
       - .env
@@ -32,6 +33,7 @@ services:
     container_name: nginx
     build:
       context: ./requirements/nginx
+      dockerfile: Dockerfile
     image: inception-nginx
     env_file:
       - .env
@@ -50,16 +52,16 @@ networks:
     driver: bridge
 
 volumes:
-  wordpress_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/natferna/data/wordpress
-
   mariadb_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/natferna/data/mariadb
+      device: ./data/mariadb
+
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/wordpress

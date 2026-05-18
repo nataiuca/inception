@@ -1,15 +1,17 @@
 NAME = inception
-DATA_DIR = /home/natferna/data
+
+DATA_DIR = ./data
+
 COMPOSE = docker compose -f srcs/docker-compose.yml --env-file srcs/.env
 
-all: up
+all: build up
 
 build:
 	mkdir -p $(DATA_DIR)/wordpress
 	mkdir -p $(DATA_DIR)/mariadb
 	$(COMPOSE) build
 
-up:
+up: build
 	$(COMPOSE) up -d
 
 down:
@@ -20,8 +22,7 @@ clean:
 
 fclean: clean
 	docker image rm -f inception-mariadb inception-wordpress inception-nginx 2>/dev/null || true
-	rm -rf $(DATA_DIR)/wordpress
-	rm -rf $(DATA_DIR)/mariadb
+	rm -rf $(DATA_DIR)
 
 re: fclean all
 
