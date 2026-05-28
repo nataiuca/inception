@@ -17,6 +17,8 @@ services:
     image: wordpress
     container_name: wordpress
     build: ./requirements/wordpress
+    env_file:
+      - .env
     volumes:
       - wordpress_data:/var/www/html
     depends_on:
@@ -29,6 +31,8 @@ services:
     image: mariadb
     container_name: mariadb
     build: ./requirements/mariadb
+    env_file:
+      - .env
     volumes:
       - mariadb_data:/var/lib/mysql
     restart: always
