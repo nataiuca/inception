@@ -12,8 +12,9 @@ done
 cd /var/www/html
 
 if [ ! -f /usr/local/bin/wp ]; then
-	curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-	chmod +x /usr/local/bin/wp
+	curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+	chmod +x wp-cli.phar
+	mv wp-cli.phar /usr/local/bin/wp
 fi
 
 if [ ! -f wp-config.php ]; then
@@ -42,4 +43,4 @@ fi
 
 chown -R www-data:www-data /var/www/html
 
-exec php-fpm7.4 -F
+exec /usr/sbin/php-fpm7.4 -F
