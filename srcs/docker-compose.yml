@@ -6,7 +6,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - wordpress_data:/var/www/html
+      - wordpress_data:/var/www/html:ro
     depends_on:
       - wordpress
     restart: always
@@ -52,34 +52,4 @@ volumes:
 
 networks:
   inception:
-    driver: bridge    image: inception-nginx
-    env_file:
-      - .env
-    ports:
-      - "443:443"
-    volumes:
-      - wordpress_data:/var/www/html:ro
-    networks:
-      - inception
-    restart: always
-    depends_on:
-      - wordpress
-
-networks:
-  inception:
     driver: bridge
-
-volumes:
-  mariadb_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./data/mariadb
-
-  wordpress_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./data/wordpress
