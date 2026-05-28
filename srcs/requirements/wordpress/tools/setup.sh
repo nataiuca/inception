@@ -5,9 +5,12 @@ mkdir -p /var/www/html
 chown -R www-data:www-data /var/www/html
 
 echo "Waiting for MariaDB..."
-until mariadb -hmariadb -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" &>/dev/null; do
+
+until mysqladmin ping -h mariadb --silent; do
 	sleep 2
 done
+
+echo "MariaDB started!"
 
 cd /var/www/html
 
