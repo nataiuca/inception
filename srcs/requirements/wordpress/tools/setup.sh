@@ -21,7 +21,7 @@ if [ ! -f /usr/local/bin/wp ]; then
 fi
 
 if [ ! -f wp-config.php ]; then
-	wp core download --allow-root
+	wp core download --allow-root --force
 
 	wp config create \
 		--allow-root \
