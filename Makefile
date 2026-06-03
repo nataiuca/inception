@@ -15,6 +15,12 @@ build:
 up:
 	$(COMPOSE) up -d
 
+logs:
+	$(COMPOSE) logs -f
+
+ps:
+	$(COMPOSE) ps
+
 down:
 	$(COMPOSE) down
 
