@@ -1,14 +1,14 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 RUN apt-get update && apt-get install -y \
-	php7.4 \
-	php7.4-fpm \
-	php7.4-mysql \
-	mariadb-client \
-	curl \
- && rm -rf /var/lib/apt/lists/*
+		php8.2 \
+		php8.2-fpm \
+		php8.2-mysql \
+		mariadb-client \
+		curl \
+	 && rm -rf /var/lib/apt/lists/*
 
-COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
 COPY tools/setup.sh /setup.sh
 
 RUN chmod +x /setup.sh
