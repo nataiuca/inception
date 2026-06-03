@@ -1,11 +1,12 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 RUN apt-get update && apt-get install -y \
-	nginx \
-	openssl \
- && rm -rf /var/lib/apt/lists/*
+		nginx \
+		openssl \
+	 && rm -rf /var/lib/apt/lists/*
 
 RUN rm -rf /var/www/html/*
+RUN rm -f /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
 RUN mkdir -p /etc/nginx/ssl
 
 RUN openssl req -x509 -nodes -days 365 \
