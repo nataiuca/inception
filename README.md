@@ -114,5 +114,3 @@ Docker volumes persist data after containers are removed. This project uses name
 - NGINX documentation: https://nginx.org/en/docs/
 - WordPress documentation: https://wordpress.org/documentation/
 - WP-CLI documentation: https://wp-cli.org/
-
-AI was used to help structure the project, explain Docker concepts, draft documentation, and prepare defense questions. The generated material was reviewed and adapted to match the project subject and the `natferna` configuration.
