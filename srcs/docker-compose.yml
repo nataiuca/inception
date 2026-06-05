@@ -77,7 +77,6 @@ volumes:
       type: none
       o: bind
       device: ${DATA_PATH}/mariadb
-
   wordpress_data:
     name: wordpress_data
     driver: local
