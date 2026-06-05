@@ -6,7 +6,7 @@ chown -R www-data:www-data /var/www/html
 
 echo "Waiting for MariaDB..."
 
-until mysqladmin ping -h mariadb --silent; do
+until mysqladmin ping -h mariadb -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" --silent; do
 	sleep 2
 done
 
@@ -41,7 +41,7 @@ if [ ! -f wp-config.php ]; then
 	wp user create \
 		"$WP_USER" "$WP_USER_EMAIL" \
 		--user_pass="$WP_USER_PASSWORD" \
-		--allow-root
+		--allow-root || true
 fi
 
 chown -R www-data:www-data /var/www/html
