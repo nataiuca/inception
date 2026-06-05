@@ -32,4 +32,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all build up down clean fclean re
+.PHONY: all build up logs ps down clean fclean re
