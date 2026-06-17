@@ -31,7 +31,7 @@ WP_URL=https://natferna.42.fr
 
 The project is intended to run inside a Debian virtual machine. The campus Linux host is used for editing files and opening the WordPress site in Chrome.
 
-The VM IP address depends on the current network. The examples below use `192.168.x.x`; replace it with the real IP shown by `ip a` inside the VM.
+The VM IP address depends on the current network. On the 42 campus network it usually starts with `10.`. The examples below use `10.x.x.x`; replace it with the real IP shown by `ip a` inside the VM.
 
 ### Virtual Machine Creation
 
@@ -138,7 +138,7 @@ ip a
 Look for the IPv4 address on the main network interface, for example:
 
 ```text
-192.168.x.x
+10.x.x.x
 ```
 
 This is the address used by the Linux host to reach the VM.
@@ -146,7 +146,7 @@ This is the address used by the Linux host to reach the VM.
 From the Linux host, verify that the VM answers:
 
 ```bash
-ping 192.168.x.x
+ping 10.x.x.x
 ```
 
 ### SSH Access from the Linux Host
@@ -154,10 +154,10 @@ ping 192.168.x.x
 From the Linux host:
 
 ```bash
-ssh natferna@192.168.x.x
+ssh natferna@10.x.x.x
 ```
 
-Replace `192.168.x.x` with the current VM IP address.
+Replace `10.x.x.x` with the current VM IP address.
 
 SSH is useful for:
 
@@ -191,7 +191,7 @@ sudo nano /etc/hosts
 Add:
 
 ```text
-192.168.x.x natferna.42.fr
+10.x.x.x natferna.42.fr
 ```
 
 Do not keep another active line for the same domain, such as:
@@ -211,7 +211,7 @@ ping natferna.42.fr
 Expected result:
 
 ```text
-natferna.42.fr (192.168.x.x)
+natferna.42.fr (10.x.x.x)
 ```
 
 ### Checking Port 443 from the Linux Host
@@ -219,7 +219,7 @@ natferna.42.fr (192.168.x.x)
 From the Linux host:
 
 ```bash
-curl -k https://192.168.x.x
+curl -k https://10.x.x.x
 curl -k https://natferna.42.fr
 ```
 
@@ -259,7 +259,7 @@ https://natferna.42.fr/wp-admin
 If direct access to the VM IP is not possible, forward host port 443 to the VM:
 
 ```bash
-ssh -L 443:localhost:443 natferna@192.168.x.x
+ssh -L 443:localhost:443 natferna@10.x.x.x
 ```
 
 With this tunnel active, the Linux host `/etc/hosts` file should use:
@@ -275,7 +275,7 @@ Without this tunnel, the Linux host should use the VM IP address instead.
 If `sudo` is not available on the Linux host and `/etc/hosts` cannot be edited, use an SSH SOCKS tunnel:
 
 ```bash
-ssh -D 8080 natferna@192.168.x.x
+ssh -D 8080 natferna@10.x.x.x
 ```
 
 Keep that terminal open, then launch Chrome with the SOCKS proxy:
