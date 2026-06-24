@@ -26,7 +26,13 @@ For virtual machine setup, host access, SSH, networking checks, and deeper imple
 
 ## Instructions
 
-Before starting the project, make sure Docker and Docker Compose are installed on the virtual machine.
+Before starting the project, make sure Docker and Docker Compose v2 are installed on the virtual machine.
+
+Check that the Compose command used by the Makefile is available:
+
+```bash
+docker compose version
+```
 
 Add the local domain to `/etc/hosts`:
 
@@ -42,11 +48,22 @@ sudo mkdir -p /home/natferna/data/wordpress
 sudo chown -R "$USER:$USER" /home/natferna/data
 ```
 
-The persistent data path is configured in `srcs/.env`:
+The persistent data path and project variables are configured in `srcs/.env`:
 
 ```env
+DOMAIN_NAME=natferna.42.fr
 DATA_PATH=/home/natferna/data
+
+MYSQL_DATABASE=wordpress
+MYSQL_USER=wpuser
+
+WP_TITLE=Inception
 WP_URL=https://natferna.42.fr
+WP_ADMIN_USER=natferna_owner
+WP_ADMIN_EMAIL=admin@example.com
+
+WP_USER=natferna_user
+WP_USER_EMAIL=natferna@example.com
 ```
 
 The `.env` file must only contain non-sensitive configuration. Passwords are read from Docker secrets.
@@ -179,3 +196,5 @@ Expected behavior:
 - NGINX documentation: https://nginx.org/en/docs/
 - WordPress documentation: https://wordpress.org/documentation/
 - WP-CLI documentation: https://wp-cli.org/
+
+AI was used as a review and documentation assistant. It helped check the subject requirements against the project files, improve the wording of `README.md`, `USER_DOC.md`, and `DEV_DOC.md`, and identify commands or explanations that needed to be clearer. The Dockerfiles, Compose configuration, Makefile behavior, and final project decisions were reviewed and validated manually.

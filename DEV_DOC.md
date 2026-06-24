@@ -2,7 +2,7 @@
 
 ## Environment Setup
 
-This project must run inside a virtual machine with Docker and Docker Compose installed.
+This project must run inside a virtual machine with Docker and Docker Compose v2 installed.
 
 Required host preparation:
 
@@ -62,11 +62,11 @@ sudo systemctl enable --now ssh
 
 ### Docker Installation inside the VM
 
-Install Docker, Docker Compose, and build tools:
+Install Docker, Docker Compose v2, and build tools:
 
 ```bash
 sudo apt update
-sudo apt install -y docker.io docker-compose build-essential
+sudo apt install -y docker.io docker-compose-plugin build-essential
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$USER"
 ```
@@ -323,6 +323,24 @@ Service files:
 - `srcs/requirements/wordpress/Dockerfile`
 - `srcs/requirements/nginx/Dockerfile`
 
+Expected `srcs/.env` content:
+
+```env
+DOMAIN_NAME=natferna.42.fr
+DATA_PATH=/home/natferna/data
+
+MYSQL_DATABASE=wordpress
+MYSQL_USER=wpuser
+
+WP_TITLE=Inception
+WP_URL=https://natferna.42.fr
+WP_ADMIN_USER=natferna_owner
+WP_ADMIN_EMAIL=admin@example.com
+
+WP_USER=natferna_user
+WP_USER_EMAIL=natferna@example.com
+```
+
 ## Secrets
 
 Create the secrets before launching the stack:
@@ -335,6 +353,8 @@ printf 'your-wordpress-user-password\n' > secrets/wp_user_password.txt
 ```
 
 The Dockerfiles and `.env` do not contain passwords. Containers read secrets from `/run/secrets`.
+
+The files in `secrets/*.txt` are ignored by Git, except for `secrets/credentials.txt`, which is only a local reminder for evaluation and must not contain passwords.
 
 ## Build and Launch
 
@@ -420,16 +440,22 @@ If Docker volumes were created with an incorrect host path, run `make fclean` an
 
 ## Core Docker Compose Commands
 
-The Makefile wraps Docker Compose, but these commands are useful for understanding what happens underneath:
+The Makefile wraps Docker Compose with this base command:
+
+```bash
+docker compose --env-file srcs/.env -f srcs/docker-compose.yml
+```
+
+These commands are useful for understanding what happens underneath:
 
 | Command | Purpose |
 | --- | --- |
-| `docker compose build` | Builds the images defined in `srcs/docker-compose.yml`. |
-| `docker compose up -d` | Creates and starts the stack in detached mode. |
-| `docker compose stop` | Stops containers without removing them. |
-| `docker compose down` | Removes containers and the project network. |
-| `docker compose ps` | Lists containers managed by Compose. |
-| `docker compose down -v` | Removes containers, network, and project volumes. Used only by `make fclean`. |
+| `docker compose --env-file srcs/.env -f srcs/docker-compose.yml build` | Builds the images defined in `srcs/docker-compose.yml`. |
+| `docker compose --env-file srcs/.env -f srcs/docker-compose.yml up -d` | Creates and starts the stack in detached mode. |
+| `docker compose --env-file srcs/.env -f srcs/docker-compose.yml stop` | Stops containers without removing them. |
+| `docker compose --env-file srcs/.env -f srcs/docker-compose.yml down` | Removes containers and the project network. |
+| `docker compose --env-file srcs/.env -f srcs/docker-compose.yml ps` | Lists containers managed by Compose. |
+| `docker compose --env-file srcs/.env -f srcs/docker-compose.yml down -v` | Removes containers, network, and project volumes. Used only by `make fclean`. |
 | `docker system prune -af` | Removes unused Docker objects and build cache. Used by `make fclean`. |
 
 If images are not rebuilt, changes in Dockerfiles or entrypoint scripts may not appear in running containers. Use `make clean && make` or `make re` after infrastructure changes.

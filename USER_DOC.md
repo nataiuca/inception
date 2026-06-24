@@ -50,11 +50,21 @@ make logs
 
 ## Access the Website
 
-Before accessing the site, the domain must point to the local machine. Add this line to `/etc/hosts` if it is not already present:
+Before accessing the site, the domain must point to the machine running NGINX.
+
+If the browser is opened inside the virtual machine, add this line to `/etc/hosts` if it is not already present:
 
 ```text
 127.0.0.1 natferna.42.fr
 ```
+
+If the browser is opened from the host machine and the project runs inside a bridged virtual machine, use the VM IP address instead:
+
+```text
+192.168.x.x natferna.42.fr
+```
+
+Replace `192.168.x.x` with the real VM IP address.
 
 Website:
 
@@ -94,6 +104,10 @@ Expected files:
 - `secrets/wp_user_password.txt`
 
 These files should contain one password each. Real passwords should not be committed to a public repository.
+
+Usernames and non-sensitive configuration are stored in `srcs/.env`. The local reminder file `secrets/credentials.txt` can be used during evaluation to identify the database user, WordPress administrator, and regular WordPress user.
+
+If a password file is changed after WordPress and MariaDB have already been initialized, the existing database and WordPress accounts may still keep their previous passwords. To apply new initial secrets from a clean state, run `make fclean`, recreate the secret files if needed, and then start the project again with `make`.
 
 ## Check Service Status
 
