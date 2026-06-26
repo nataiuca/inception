@@ -356,7 +356,7 @@ printf 'your-wordpress-user-password\n' > secrets/wp_user_password.txt
 
 The Dockerfiles and `.env` do not contain passwords. Containers read secrets from `/run/secrets`.
 
-The files in `secrets/*.txt` are ignored by Git, except for `secrets/credentials.txt`, which is only a local reminder for evaluation and must not contain passwords.
+The files in `secrets/*.txt` are ignored by Git and must stay local. The tracked `secrets/credentials.example` file documents the expected local secret files without storing real passwords.
 
 ## Build and Launch
 

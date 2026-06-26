@@ -1,3 +1,4 @@
 secrets/*.txt
-!secrets/credentials.txt
+!secrets/.gitkeep
+!secrets/credentials.example
 *.log

@@ -105,7 +105,7 @@ Expected files:
 
 These files should contain one password each. Real passwords should not be committed to a public repository.
 
-Usernames and non-sensitive configuration are stored in `srcs/.env`. The local reminder file `secrets/credentials.txt` can be used during evaluation to identify the database user, WordPress administrator, and regular WordPress user.
+Usernames and non-sensitive configuration are stored in `srcs/.env`. If you need a local reminder during evaluation, create `secrets/credentials.txt` yourself and keep it out of Git. The tracked `secrets/credentials.example` file documents which local secret files are expected without storing real passwords.
 
 If a password file is changed after WordPress and MariaDB have already been initialized, the existing database and WordPress accounts may still keep their previous passwords. To apply new initial secrets from a clean state, run `make fclean`, recreate the secret files if needed, and then start the project again with `make`.
 
